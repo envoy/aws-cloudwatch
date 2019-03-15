@@ -42,7 +42,8 @@ def prepare(cw_log_lines, hostname=None, tags=None):
     app = 'CloudWatch'
     meta = {'type': app}
     if 'logGroup' in cw_log_lines:
-        app = cw_log_lines['logGroup'].split('/')[-1]
+        app_name = cw_log_lines['logStream'].split('/')[0]
+        app = "app[" + app_name + "]"
         meta['group'] = cw_log_lines['logGroup'];
     if 'logStream' in cw_log_lines:
         options['hostname'] = cw_log_lines['logStream'].split('/')[-1].split(']')[-1]
